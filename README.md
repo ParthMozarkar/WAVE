@@ -1,6 +1,6 @@
-# Gesture Synth 🎵👋
+# WAVE 🎵👋
 
-**Gesture Synth** is an interactive, camera-based musical instrument that transforms computer vision hand gestures into real-time audio synthesis. Powered by MediaPipe Hand Landmarking and the Web Audio API, it allows musicians, creators, and enthusiasts to play chords, control expression, apply dynamic audio filters, and adjust octaves purely through hand gestures.
+**WAVE** is an interactive, camera-based musical instrument that transforms computer vision hand gestures into real-time audio synthesis. Powered by MediaPipe Hand Landmarking and the Web Audio API, it allows musicians, creators, and enthusiasts to play chords, control expression, apply dynamic audio filters, and adjust octaves purely through hand gestures.
 
 Original project created by **[Eric Wei](https://indecisiveeric.com)**.
 
@@ -9,7 +9,7 @@ Original project created by **[Eric Wei](https://indecisiveeric.com)**.
 ## 🎥 Demo & Tutorial
 
 Watch the video tutorial on Instagram:  
-👉 **[Gesture Synth Instagram Tutorial by Eric Wei](https://www.instagram.com/p/DbH1BACxNCG/)**
+👉 **[WAVE Instagram Tutorial by Eric Wei](https://www.instagram.com/p/DbH1BACxNCG/)**
 
 ---
 
