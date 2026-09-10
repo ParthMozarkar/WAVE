@@ -2,15 +2,6 @@
 
 **WAVE** is an interactive, camera-based musical instrument that transforms computer vision hand gestures into real-time audio synthesis. Powered by MediaPipe Hand Landmarking and the Web Audio API, it allows musicians, creators, and enthusiasts to play chords, control expression, apply dynamic audio filters, and adjust octaves purely through hand gestures.
 
-Original project created by **[Eric Wei](https://indecisiveeric.com)**.
-
----
-
-## 🎥 Demo & Tutorial
-
-Watch the video tutorial on Instagram:  
-👉 **[WAVE Instagram Tutorial by Eric Wei](https://www.instagram.com/p/DbH1BACxNCG/)**
-
 ---
 
 ## ✨ Features
@@ -110,10 +101,4 @@ WAVE/
 └── .gitignore        # Git ignore rules
 ```
 
----
-
-## 📜 License & Credits
-
-- Created by **Eric Wei** ([indecisiveeric.com](https://indecisiveeric.com)).
-- Free to use, modify, and share for educational and non-commercial purposes.
 
