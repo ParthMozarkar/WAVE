@@ -123,27 +123,52 @@ Ensure you have [Node.js](https://nodejs.org/) (v18+ recommended) installed on y
 
 ```text
 WAVE/
-├── index.html                     # Main HTML layout, HUD overlays, modals, and styling
-├── main.js                        # Pipeline orchestrator: camera, vision loop, audio sync
-├── package.json                   # Scripts and project dependencies
+├── index.html                     # Clean React HTML root mounting container
+├── vite.config.js                 # Vite + React plugin configuration
+├── package.json                   # Scripts (dev, build, preview, test) and dependencies
 ├── package-lock.json              # Dependency lockfile
 ├── README.md                      # Documentation and usage guide
 ├── LICENSE                        # License agreement
 ├── src/
-│   ├── audio/
-│   │   └── SynthEngine.js         # Polyphonic synthesizer with click-free crossfade Gain envelopes
+│   ├── main.jsx                   # React root entry point (createRoot)
+│   ├── App.jsx                    # Application composition & state coordinator
+│   ├── components/
+│   │   ├── Header.jsx             # Top control bar (Key, Tone, navigation buttons)
+│   │   ├── CameraView.jsx         # Video element & canvas overlay (refs decoupled from renders)
+│   │   ├── ChordDisplay.jsx       # Center active chord name & voicing quality
+│   │   ├── ConfidenceIndicator.jsx# Live confidence HUD & warning banner
+│   │   ├── VolumeMeter.jsx        # Right-hand vertical VU meter & filter sweep display
+│   │   ├── GestureGuide.jsx       # Musical scale degree reference card
+│   │   ├── GestureMapping.jsx     # Custom mapping editor modal with presets
+│   │   ├── ProgressionRecorder.jsx# Timeline looper strip with interactive chord chips
+│   │   ├── SessionHistory.jsx     # Chronological chord event history table
+│   │   ├── PerformancePanel.jsx   # Real-time diagnostics HUD (FPS, latency, voices)
+│   │   ├── StatusIndicator.jsx    # Vision & camera readiness status
+│   │   ├── Notification.jsx       # Toast alert notifications
+│   │   ├── HelpModal.jsx          # WAVE interaction guide & instructions
+│   │   └── StartOverlay.jsx       # Initial Web Audio context unlock prompt
+│   ├── hooks/
+│   │   ├── useHandTracking.js     # 60fps computer vision loop & audio driving
+│   │   ├── useGestureDetection.js # Confidence calculation & chord stabilization
+│   │   ├── useAudioEngine.js      # Web Audio SynthEngine state & controls
+│   │   ├── useGestureMapping.js   # Custom mappings state & presets
+│   │   ├── useProgressionRecorder.js # Recorder timeline & scheduling hooks
+│   │   ├── useSessionHistory.js   # Session history state & logging
+│   │   └── usePerformanceMonitor.js# Polled real-time telemetry metrics
+│   ├── services/
+│   │   ├── audioEngine.js         # Dedicated Web Audio API engine
+│   │   ├── handTracking.js        # MediaPipe loader & canvas drawing utilities
+│   │   ├── storage.js             # Centralized localStorage persistence
+│   │   └── chords/
+│   │       └── chordTheory.js     # Scale intervals, degree frequencies, & chord tones
 │   ├── gestures/
-│   │   ├── classifier.js          # Finger posture detection, tilt angle, and degree classification
-│   │   ├── confidence.js          # Real multi-factor confidence calculator and boundary analysis
-│   │   └── mapping.js             # Custom mapping store, presets (Standard & Pop), and localStorage
-│   ├── recording/
-│   │   └── progressionRecorder.js # Chord sequence recorder, timeline scheduler, and looper
-│   ├── history/
-│   │   └── sessionHistory.js      # Timestamped audit log with capped persistence
-│   ├── performance/
-│   │   └── perfMonitor.js         # Real FPS, inference latency, accuracy, and audio node diagnostics
-│   └── ui/
-│       └── UIManager.js           # Controls dock, modal dialogs, timeline strips, and HUD alerts
+│   │   ├── classifier.js          # Pure landmark geometry & finger detection
+│   │   ├── confidence.js          # Grounded multi-factor confidence calculator
+│   │   └── mapping.js             # Gesture definitions & schema validation
+│   ├── chords/
+│   │   └── chordEngine.js         # Re-export for musical chord calculations
+│   └── styles/
+│       └── app.css                # Pure CSS dark glassmorphic styling
 └── test/
     └── wave.test.js               # Comprehensive unit test suite (24 automated tests)
 ```

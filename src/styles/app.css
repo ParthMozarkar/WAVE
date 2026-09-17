@@ -1,0 +1,777 @@
+/* WAVE — Modern Dark Glassmorphic Theme */
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #111;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", monospace;
+  user-select: none;
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+}
+
+#webcam {
+  display: none;
+}
+
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#overlay.dimmed {
+  filter: grayscale(1) brightness(0.6);
+}
+
+/* =========================================
+   TOP CONTROL BAR DOCK
+   ========================================= */
+#topControlBar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid #3a3428;
+  border-radius: 8px;
+  padding: 6px 10px;
+  z-index: 15;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.brand-label {
+  color: #e8a13d;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  margin-right: 4px;
+}
+
+.top-select {
+  background: #1a1a1a;
+  color: #e8a13d;
+  border: 1px solid #3a3428;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 13px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.top-select:focus {
+  outline: none;
+  border-color: #e8a13d;
+}
+
+.top-nav-btn {
+  background: #1a1a1a;
+  color: #e8a13d;
+  border: 1px solid #3a3428;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 13px;
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.top-nav-btn:hover {
+  background: #2a241b;
+  border-color: #e8a13d;
+  color: #ffbf5c;
+}
+
+.top-nav-btn.active {
+  background: #e8a13d;
+  color: #111;
+  font-weight: bold;
+  border-color: #ffbf5c;
+}
+
+/* =========================================
+   GESTURE GUIDE FLOATING CARD
+   ========================================= */
+#gestureGuide {
+  position: absolute;
+  top: 62px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 12;
+  font-family: monospace;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(20,20,20,0.92), rgba(20,20,20,0.75));
+  backdrop-filter: blur(10px);
+  border: 1px solid #3a3428;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+.gesture-guide-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gesture-guide-note {
+  width: 28px;
+  color: #e8a13d;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.gesture-guide-gesture {
+  font-size: 18px;
+}
+
+/* =========================================
+   CONFIDENCE & WARNING HUD
+   ========================================= */
+#hudContainer {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 14;
+  pointer-events: none;
+}
+
+#confidenceHud {
+  font-family: monospace;
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid #3a3428;
+  color: #999;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+}
+
+#confidenceHud.high {
+  color: #55efc4;
+  border-color: rgba(85, 239, 196, 0.4);
+  box-shadow: 0 0 10px rgba(85, 239, 196, 0.2);
+}
+
+#confidenceHud.low {
+  color: #fab1a0;
+  border-color: rgba(250, 177, 160, 0.4);
+}
+
+#gestureWarning {
+  font-family: monospace;
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 6px;
+  background: rgba(232, 161, 61, 0.2);
+  border: 1px solid #e8a13d;
+  color: #ffbf5c;
+  animation: pulseWarning 1.5s infinite ease-in-out;
+  box-shadow: 0 0 14px rgba(232, 161, 61, 0.3);
+}
+
+@keyframes pulseWarning {
+  0%, 100% { opacity: 0.95; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.98); }
+}
+
+/* =========================================
+   CHORD & QUALITY DISPLAY
+   ========================================= */
+#chordDisplay {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #e8a13d;
+  font-size: 44px;
+  font-family: monospace;
+  font-weight: bold;
+  text-shadow: 0 0 16px rgba(232, 161, 61, 0.7);
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+
+#qualityDisplay {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffbf5c;
+  font-size: 13px;
+  font-family: monospace;
+  pointer-events: none;
+  letter-spacing: 0.03em;
+}
+
+/* =========================================
+   VOLUME METER & FILTER
+   ========================================= */
+#volumeMeter {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.vol-bar {
+  width: 70px;
+  height: 8px;
+  background: #3a3428;
+  border-radius: 2px;
+  transition: background 0.08s ease;
+}
+
+.vol-bar.lit {
+  background: #e8a13d;
+  box-shadow: 0 0 6px rgba(232, 161, 61, 0.5);
+}
+
+#distortionDisplay {
+  position: absolute;
+  top: 105px;
+  right: 12px;
+  color: #e8a13d;
+  font-family: monospace;
+  font-size: 13px;
+  text-align: right;
+  pointer-events: none;
+  z-index: 10;
+  text-shadow: 0 0 8px rgba(0,0,0,0.8);
+}
+
+/* =========================================
+   RECORDER STRIP (BOTTOM)
+   ========================================= */
+#recorderStrip {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(840px, 94vw);
+  background: rgba(20, 20, 20, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid #3a3428;
+  border-radius: 10px;
+  padding: 8px 14px;
+  z-index: 15;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recorder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recorder-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rec-btn {
+  background: #1a1a1a;
+  color: #e8a13d;
+  border: 1px solid #3a3428;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 13px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.rec-btn:hover {
+  border-color: #e8a13d;
+  background: #2a241b;
+}
+
+.rec-btn.recording {
+  background: #d63031;
+  color: #fff;
+  border-color: #ff7675;
+  animation: pulseRec 1.2s infinite;
+}
+
+@keyframes pulseRec {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.rec-btn.active {
+  background: #e8a13d;
+  color: #111;
+  font-weight: bold;
+}
+
+.rec-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-clear {
+  color: #fab1a0;
+}
+
+.rec-status-text {
+  font-family: monospace;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.timeline-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 2px;
+  min-height: 34px;
+}
+
+.timeline-empty {
+  font-family: monospace;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+.timeline-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #222;
+  border: 1px solid #3a3428;
+  border-radius: 6px;
+  padding: 3px 8px;
+  min-width: 48px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #eee;
+  transition: all 0.15s ease;
+}
+
+.timeline-chip .chip-chord {
+  font-weight: bold;
+  color: #e8a13d;
+}
+
+.timeline-chip .chip-time {
+  font-size: 10px;
+  color: #888;
+}
+
+.timeline-chip.active {
+  background: #e8a13d;
+  border-color: #ffbf5c;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 10px rgba(232, 161, 61, 0.5);
+}
+
+.timeline-chip.active .chip-chord {
+  color: #111;
+}
+
+.timeline-chip.active .chip-time {
+  color: #222;
+}
+
+/* =========================================
+   PERFORMANCE MONITOR PANEL (TOP RIGHT)
+   ========================================= */
+.perf-hud {
+  position: absolute;
+  top: 140px;
+  right: 12px;
+  width: 220px;
+  background: rgba(20, 20, 20, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid #3a3428;
+  border-radius: 8px;
+  padding: 10px 12px;
+  z-index: 15;
+  font-family: monospace;
+  font-size: 12px;
+  color: #ddd;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.perf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #e8a13d;
+  font-weight: bold;
+  border-bottom: 1px solid #333;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.perf-close {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.perf-close:hover {
+  color: #e8a13d;
+}
+
+.perf-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.perf-label {
+  color: #888;
+}
+
+.perf-val {
+  font-weight: bold;
+  color: #55efc4;
+}
+
+/* =========================================
+   MODAL DIALOGS (MAPPING, HISTORY, HELP)
+   ========================================= */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+}
+
+.modal-card {
+  background: #181818;
+  color: #f1f1f1;
+  border: 1px solid #e8a13d;
+  border-radius: 12px;
+  width: min(540px, 92vw);
+  max-height: 84vh;
+  overflow-y: auto;
+  padding: 24px;
+  font-family: monospace;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+}
+
+.modal-card h2 {
+  color: #e8a13d;
+  margin-top: 0;
+  margin-bottom: 4px;
+  font-size: 20px;
+}
+
+.modal-subtitle {
+  color: #aaa;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.modal-close {
+  float: right;
+  background: none;
+  border: none;
+  color: #e8a13d;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #ffbf5c;
+}
+
+.mapping-key-banner {
+  background: #252015;
+  border: 1px solid #4a3d24;
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #ffbf5c;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.preset-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.preset-label {
+  font-size: 12px;
+  color: #888;
+}
+
+.btn-sm {
+  background: #222;
+  border: 1px solid #444;
+  color: #e8a13d;
+  font-family: monospace;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-sm:hover {
+  border-color: #e8a13d;
+  background: #2a241b;
+}
+
+.mapping-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.mapping-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #202020;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.mapping-gesture-label {
+  font-size: 13px;
+  color: #ddd;
+  min-width: 140px;
+}
+
+.mapping-arrow {
+  color: #e8a13d;
+  font-size: 14px;
+}
+
+.mapping-select {
+  background: #141414;
+  color: #e8a13d;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+  border-top: 1px solid #333;
+  padding-top: 14px;
+}
+
+.btn-primary {
+  background: #e8a13d;
+  color: #111;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-family: monospace;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #ffbf5c;
+}
+
+.btn-secondary {
+  background: #222;
+  color: #aaa;
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-family: monospace;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  border-color: #666;
+}
+
+/* History Modal Specifics */
+.history-table-header {
+  display: grid;
+  grid-template-columns: 80px 140px 1fr 60px;
+  padding: 6px 8px;
+  color: #888;
+  font-size: 11px;
+  border-bottom: 1px solid #333;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 48vh;
+  overflow-y: auto;
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: 80px 140px 1fr 60px;
+  padding: 7px 8px;
+  border-bottom: 1px solid #222;
+  font-size: 12px;
+  align-items: center;
+}
+
+.history-row:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hist-time {
+  color: #888;
+}
+
+.hist-gesture {
+  color: #ccc;
+}
+
+.hist-chord {
+  color: #e8a13d;
+  font-weight: bold;
+}
+
+.hist-conf {
+  color: #55efc4;
+}
+
+.history-empty {
+  text-align: center;
+  color: #777;
+  padding: 30px 10px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #222;
+  border: 1px solid #e8a13d;
+  color: #e8a13d;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-family: monospace;
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.25s ease;
+  z-index: 50;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =========================================
+   START OVERLAY & DIMMED STATE
+   ========================================= */
+#startOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 10vh;
+  gap: 16px;
+  cursor: pointer;
+  z-index: 25;
+  box-sizing: border-box;
+}
+
+.start-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #111;
+  transition: transform 0.2s ease;
+}
+
+#startOverlay:hover .start-circle {
+  transform: scale(1.08);
+}
+
+.start-text {
+  color: #fff;
+  font-family: monospace;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  #topControlBar {
+    flex-wrap: wrap;
+    max-width: 90vw;
+  }
+  #chordDisplay {
+    font-size: 32px;
+    bottom: 95px;
+  }
+  .perf-hud {
+    top: auto;
+    bottom: 90px;
+    right: 12px;
+  }
+}
