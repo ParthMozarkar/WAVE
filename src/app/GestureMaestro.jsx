@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import { Header } from "../components/Header.jsx";
 import { CameraView } from "../components/CameraView.jsx";
 import { ChordDisplay } from "../components/ChordDisplay.jsx";
@@ -29,6 +29,13 @@ import "../styles/app.css";
 export function GestureMaestro({ onExitHome }) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+
+  useEffect(() => {
+    document.body.classList.add("instrument-mode");
+    return () => {
+      document.body.classList.remove("instrument-mode");
+    };
+  }, []);
 
   // Audio Engine Hook
   const {
