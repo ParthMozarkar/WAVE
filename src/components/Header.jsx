@@ -18,6 +18,8 @@ export function Header({
   isPerfOpen,
   onToggleHelp,
   onExitHome,
+  mode = "synth",
+  onModeChange,
 }) {
   return (
     <header id="topControlBar">
@@ -63,6 +65,16 @@ export function Header({
         <option value="sawtooth">Bright Synth</option>
         <option value="square">Retro Synth</option>
       </select>
+
+      {/* Mode Toggle */}
+      <button
+        className={`top-nav-btn ${mode === "drums" ? "active" : ""}`}
+        onClick={() => onModeChange && onModeChange(mode === "synth" ? "drums" : "synth")}
+        title="Toggle Drum Mode"
+        style={mode === "drums" ? { background: "rgba(255,160,60,0.25)", color: "#ffb347" } : {}}
+      >
+        {mode === "drums" ? "🥁 Drums" : "🎸 Synth"}
+      </button>
 
       <button
         className={`top-nav-btn ${isGuideOpen ? "active" : ""}`}

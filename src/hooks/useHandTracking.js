@@ -18,6 +18,7 @@ export function useHandTracking({
   isRecordingActive,
   isPlaybackActive,
   isAudioStarted,
+  active = true,
 }) {
   const [cameraStatus, setCameraStatus] = useState("loading");
   const [gestureEngineStatus, setGestureEngineStatus] = useState("loading");
@@ -42,6 +43,9 @@ export function useHandTracking({
   }, [handleResize]);
 
   useEffect(() => {
+    // Yield camera control to drum mode when inactive
+    if (!active) return;
+
     let streamInstance = null;
     let isMounted = true;
 
@@ -210,7 +214,9 @@ export function useHandTracking({
     perfMonitor,
     isPlaybackActive,
     handleResize,
+    active,
   ]);
+
 
   return {
     cameraStatus,

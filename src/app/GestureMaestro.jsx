@@ -21,14 +21,20 @@ import { useSessionHistory } from "../hooks/useSessionHistory.js";
 import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor.js";
 import { useGestureDetection } from "../hooks/useGestureDetection.js";
 import { useHandTracking } from "../hooks/useHandTracking.js";
+import { useDrumTracking } from "../hooks/useDrumTracking.js";
 
 import { audioEngine } from "../services/audioEngine.js";
+import { drumEngine } from "../audio/DrumEngine.js";
 import { getChordName, getChordTones, getSolidNotes } from "../services/chords/chordTheory.js";
 import "../styles/app.css";
 
 export function GestureMaestro({ onExitHome }) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+
+  // ── Mode: "synth" or "drums" ──────────────────────────────────────────────
+  const [mode, setMode] = useState("synth");
+  const isDrumMode = mode === "drums";
 
   useEffect(() => {
     document.body.classList.add("instrument-mode");
@@ -86,6 +92,12 @@ export function GestureMaestro({ onExitHome }) {
     setTimeout(() => setToast(null), 2500);
   }, []);
 
+  // Unified audio start — initializes both synth and drum engines on user gesture
+  const handleStart = useCallback(() => {
+    startAudio();
+    drumEngine.ensureContext();
+  }, [startAudio]);
+
   // Accepted Chord Change Callback
   const handleChordChange = useCallback(
     (chordData) => {
@@ -121,24 +133,38 @@ export function GestureMaestro({ onExitHome }) {
     [currentKey, currentTonicFreq, logEvent, recordEvent, recorderState.isRecording]
   );
 
-  // Gesture Detection Hook
+  // Gesture Detection Hook (synth mode only)
   const { gestureState, processHandFrame } = useGestureDetection(
     mappingManager,
     handleChordChange
   );
 
-  // Hand Tracking Hook (Runs Real-time MediaPipe & Canvas loop outside React render cycle)
-  const { cameraStatus, gestureEngineStatus, error: visionError } = useHandTracking({
+  // ── Synth Hand Tracking (active only when mode === "synth") ───────────────
+  const synthTracking = useHandTracking({
     videoRef,
     canvasRef,
-    audioEngine,
+    // Suppress audio driving in drum mode so both hooks don't fight the camera
+    audioEngine: isDrumMode ? null : audioEngine,
     currentTonicFreq,
-    processHandFrame,
+    processHandFrame: isDrumMode ? null : processHandFrame,
     perfMonitor,
     isRecordingActive: recorderState.isRecording,
-    isPlaybackActive: recorderState.isPlaying,
+    isPlaybackActive: isDrumMode ? true : recorderState.isPlaying, // pause synth playback in drum mode
+    isAudioStarted,
+    active: !isDrumMode, // yield camera to drum hook when in drum mode
+  });
+
+  // ── Drum Tracking (active only when mode === "drums") ─────────────────────
+  const drumTracking = useDrumTracking({
+    videoRef,
+    canvasRef,
+    drumEngine: isDrumMode ? drumEngine : null,
     isAudioStarted,
   });
+
+  const cameraStatus = isDrumMode ? drumTracking.cameraStatus : synthTracking.cameraStatus;
+  const gestureEngineStatus = isDrumMode ? drumTracking.gestureEngineStatus : synthTracking.gestureEngineStatus;
+  const visionError = isDrumMode ? drumTracking.error : synthTracking.error;
 
   // Modal Visibility States
   const [isGuideOpen, setIsGuideOpen] = useState(false);
@@ -167,6 +193,8 @@ export function GestureMaestro({ onExitHome }) {
         isPerfOpen={isPerfOpen}
         onToggleHelp={() => setIsHelpOpen(true)}
         onExitHome={onExitHome}
+        mode={mode}
+        onModeChange={setMode}
       />
 
       <main>
@@ -246,7 +274,7 @@ export function GestureMaestro({ onExitHome }) {
 
         <StartOverlay
           isAudioStarted={isAudioStarted}
-          onStart={startAudio}
+          onStart={handleStart}
         />
 
         {visionError && <Notification message={visionError} type="error" />}
