@@ -12,7 +12,10 @@
   --lp-accent-glow: rgba(232, 161, 61, 0.25);
   --lp-border: rgba(255, 255, 255, 0.08);
   --lp-border-accent: rgba(232, 161, 61, 0.35);
-  --lp-font-editorial: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Display serif — Cormorant Garamond: high contrast, thin strokes, elegant italics */
+  --lp-font-display: "Cormorant Garamond", "Garamond", "Georgia", serif;
+  /* UI sans-serif — Inter: clean, neutral, premium */
+  --lp-font-editorial: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --lp-font-mono: "JetBrains Mono", "Fira Code", monospace;
   --lp-max-width: 1200px;
 }
@@ -21,13 +24,16 @@
   background-color: var(--lp-bg);
   color: var(--lp-text-primary);
   font-family: var(--lp-font-editorial);
+  font-weight: 400;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  line-height: 1.5;
+  line-height: 1.6;
   selection-background-color: var(--lp-accent);
   selection-color: #000;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .landing-root *::selection {
@@ -89,10 +95,11 @@
 }
 
 .lp-wordmark {
-  font-family: var(--lp-font-mono);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-family: var(--lp-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.16em;
   color: var(--lp-text-primary);
   transition: color 0.2s;
 }
@@ -122,9 +129,11 @@
 }
 
 .lp-nav-link {
-  font-family: var(--lp-font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-family: var(--lp-font-editorial);
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--lp-text-secondary);
   text-decoration: none;
   cursor: pointer;
@@ -139,15 +148,16 @@
 }
 
 .lp-nav-cta {
-  font-family: var(--lp-font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  font-weight: 600;
+  font-family: var(--lp-font-editorial);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  text-transform: uppercase;
   color: #111;
   background: var(--lp-accent);
   border: 1px solid var(--lp-accent-light);
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 8px 18px;
+  border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -214,28 +224,29 @@
 }
 
 .lp-eyebrow-text {
-  font-family: var(--lp-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  font-family: var(--lp-font-editorial);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
   color: var(--lp-accent);
   text-transform: uppercase;
-  font-weight: 500;
 }
 
-/* Monumental WAVE Wordmark */
+/* Monumental WAVE Wordmark — Cormorant Garamond italic, razor-thin at weight 300 */
 .lp-wave-monumental {
-  font-family: var(--lp-font-editorial);
-  font-size: clamp(4.5rem, 13vw, 10rem);
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  line-height: 0.95;
-  margin: 0 0 22px 0;
+  font-family: var(--lp-font-display);
+  font-size: clamp(5rem, 14vw, 11rem);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.18em;
+  line-height: 0.9;
+  margin: 0 0 24px 0;
   color: var(--lp-text-primary);
-  text-indent: 0.22em; /* Centers the wide tracking */
+  text-indent: 0.18em; /* Centers the wide tracking */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(6px, 1.5vw, 20px);
+  gap: clamp(4px, 1vw, 16px);
 }
 
 .lp-wave-char {
@@ -245,26 +256,28 @@
 
 .lp-wave-char.is-accented {
   color: var(--lp-accent);
-  transform: translateY(-8px);
-  text-shadow: 0 0 35px rgba(232, 161, 61, 0.45);
+  transform: translateY(-6px);
+  text-shadow: 0 0 40px rgba(232, 161, 61, 0.4);
 }
 
 .lp-hero-tagline {
   font-family: var(--lp-font-editorial);
-  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-  font-weight: 600;
-  letter-spacing: 0.20em;
-  color: var(--lp-text-primary);
+  font-size: clamp(0.65rem, 1.2vw, 0.82rem);
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  color: var(--lp-text-secondary);
   text-transform: uppercase;
-  margin: 0 0 10px 0;
+  margin: 0 0 12px 0;
 }
 
 .lp-hero-microcopy {
-  font-family: var(--lp-font-mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  color: var(--lp-text-secondary);
-  margin-bottom: 38px;
+  font-family: var(--lp-font-editorial);
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--lp-text-dim);
+  margin-bottom: 42px;
+  font-style: italic;
 }
 
 /* Minimal CTA */
@@ -280,18 +293,19 @@
   gap: 12px;
   background: var(--lp-accent);
   color: #090909;
-  font-family: var(--lp-font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  padding: 16px 36px;
+  font-family: var(--lp-font-editorial);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 15px 36px;
   border: 1px solid var(--lp-accent-light);
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
   overflow: hidden;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 22px rgba(232, 161, 61, 0.25);
+  box-shadow: 0 4px 22px rgba(232, 161, 61, 0.2);
 }
 
 .lp-btn-enter-wave:hover {
@@ -458,9 +472,9 @@
   }
 
   .lp-wave-monumental {
-    font-size: clamp(3.6rem, 15vw, 6.5rem);
-    letter-spacing: 0.18em;
-    text-indent: 0.18em;
+    font-size: clamp(3.8rem, 16vw, 7rem);
+    letter-spacing: 0.14em;
+    text-indent: 0.14em;
   }
 }
 
@@ -481,8 +495,8 @@
   }
 
   .lp-hero-tagline {
-    font-size: 1rem;
-    letter-spacing: 0.15em;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
   }
 }
 
@@ -508,23 +522,25 @@
 }
 
 .lp-section-header {
-  font-family: var(--lp-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-family: var(--lp-font-editorial);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
   color: var(--lp-accent);
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .lp-concept-title {
-  font-size: clamp(2.4rem, 6vw, 4.6rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.03em;
+  font-family: var(--lp-font-display);
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.0;
+  letter-spacing: 0.01em;
   color: var(--lp-text-primary);
   max-width: 960px;
   margin: 0 0 36px 0;
-  text-transform: uppercase;
 }
 
 .lp-concept-body {
@@ -532,8 +548,10 @@
   grid-template-columns: 1fr 1fr;
   gap: 50px;
   color: var(--lp-text-secondary);
-  font-size: 1.15rem;
-  line-height: 1.7;
+  font-family: var(--lp-font-editorial);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
 }
 
 @media (max-width: 768px) {
@@ -581,27 +599,31 @@
 }
 
 .lp-step-num {
-  font-family: var(--lp-font-mono);
-  font-size: 14px;
-  letter-spacing: 0.1em;
+  font-family: var(--lp-font-editorial);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
   color: var(--lp-accent);
+  text-transform: uppercase;
   margin-bottom: 20px;
-  font-weight: 600;
 }
 
 .lp-step-title {
-  font-size: 1.45rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: var(--lp-font-display);
+  font-size: 1.65rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.01em;
   color: var(--lp-text-primary);
   margin: 0 0 14px 0;
-  text-transform: uppercase;
 }
 
 .lp-step-desc {
   color: var(--lp-text-secondary);
-  font-size: 0.96rem;
-  line-height: 1.6;
+  font-family: var(--lp-font-editorial);
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.75;
   margin: 0;
 }
 
@@ -646,24 +668,29 @@
 }
 
 .lp-gesture-name {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: var(--lp-font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-style: italic;
   color: var(--lp-text-primary);
   margin: 0 0 4px 0;
 }
 
 .lp-gesture-chord {
-  font-family: var(--lp-font-mono);
-  font-size: 13px;
+  font-family: var(--lp-font-editorial);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--lp-accent);
   margin-bottom: 8px;
-  font-weight: 600;
 }
 
 .lp-gesture-hint {
-  font-size: 11px;
+  font-family: var(--lp-font-editorial);
+  font-size: 10.5px;
+  font-weight: 300;
   color: var(--lp-text-dim);
-  font-family: var(--lp-font-mono);
 }
 
 .lp-gestures-preview-box {
@@ -686,16 +713,21 @@
 }
 
 .lp-preview-chord {
-  font-family: var(--lp-font-mono);
-  font-size: 2.4rem;
-  font-weight: 800;
+  font-family: var(--lp-font-display);
+  font-size: 2.8rem;
+  font-weight: 300;
+  font-style: italic;
   color: var(--lp-accent);
+  letter-spacing: 0.02em;
 }
 
 .lp-preview-sub {
-  font-size: 14px;
+  font-family: var(--lp-font-editorial);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--lp-text-secondary);
-  font-family: var(--lp-font-mono);
 }
 
 /* ===================================================
@@ -727,16 +759,20 @@
 }
 
 .lp-vis-title {
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 800;
+  font-family: var(--lp-font-display);
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.02em;
   margin: 0 0 8px 0;
-  text-transform: uppercase;
 }
 
 .lp-vis-subtitle {
-  font-family: var(--lp-font-mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  font-family: var(--lp-font-editorial);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--lp-accent);
   margin: 0;
 }
@@ -750,19 +786,24 @@
 }
 
 .lp-tech-statement {
-  font-size: clamp(2rem, 5vw, 3.8rem);
-  font-weight: 800;
-  line-height: 1.05;
+  font-family: var(--lp-font-display);
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.04;
+  letter-spacing: 0.01em;
   color: var(--lp-text-primary);
   margin: 0 0 20px 0;
-  text-transform: uppercase;
 }
 
 .lp-tech-sub {
-  font-size: 1.25rem;
+  font-family: var(--lp-font-editorial);
+  font-size: 0.95rem;
+  font-weight: 300;
   color: var(--lp-text-secondary);
   margin-bottom: 50px;
-  max-width: 600px;
+  max-width: 580px;
+  line-height: 1.8;
 }
 
 .lp-tech-stats {
@@ -783,18 +824,21 @@
 }
 
 .lp-stat-val {
-  font-family: var(--lp-font-mono);
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-family: var(--lp-font-display);
+  font-size: 2.6rem;
+  font-weight: 300;
+  font-style: italic;
   color: var(--lp-text-primary);
   line-height: 1;
-  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+  margin-bottom: 8px;
 }
 
 .lp-stat-label {
-  font-family: var(--lp-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  font-family: var(--lp-font-editorial);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
   color: var(--lp-text-secondary);
   text-transform: uppercase;
 }
@@ -842,21 +886,25 @@
 }
 
 .lp-why-headline {
-  font-size: clamp(2.4rem, 6vw, 4.8rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-family: var(--lp-font-display);
+  font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.06;
+  letter-spacing: 0.01em;
   color: var(--lp-text-primary);
   margin: 0 auto 28px auto;
   max-width: 860px;
-  text-transform: uppercase;
 }
 
 .lp-why-sub {
-  font-size: 1.3rem;
+  font-family: var(--lp-font-editorial);
+  font-size: 0.95rem;
+  font-weight: 300;
   color: var(--lp-text-secondary);
-  max-width: 580px;
+  max-width: 520px;
   margin: 0 auto;
+  line-height: 1.8;
 }
 
 /* ===================================================
@@ -870,25 +918,27 @@
 }
 
 .lp-final-title {
-  font-size: clamp(3.2rem, 9vw, 7.2rem);
-  font-weight: 900;
+  font-family: var(--lp-font-display);
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 300;
+  font-style: italic;
   line-height: 0.92;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.02em;
   color: var(--lp-text-primary);
-  margin: 0 0 36px 0;
-  text-transform: uppercase;
+  margin: 0 0 40px 0;
 }
 
 .lp-final-btn {
-  font-family: var(--lp-font-mono);
-  font-size: 18px;
-  letter-spacing: 0.08em;
-  font-weight: 700;
+  font-family: var(--lp-font-editorial);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+  text-transform: uppercase;
   color: #000;
   background: var(--lp-accent);
   border: 1px solid var(--lp-accent-light);
-  padding: 18px 42px;
-  border-radius: 6px;
+  padding: 17px 44px;
+  border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -909,8 +959,10 @@
 .lp-footer {
   border-top: 1px solid var(--lp-border);
   padding: 40px 0;
-  font-family: var(--lp-font-mono);
-  font-size: 12px;
+  font-family: var(--lp-font-editorial);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
   color: var(--lp-text-dim);
 }
 

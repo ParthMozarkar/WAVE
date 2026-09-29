@@ -1,6 +1,9 @@
 import React from "react";
 
-const TOTAL_BARS = 8;
+const TOTAL_BARS = 12;
+
+/* Heights (in px) for each bar to create an equalizer-curve shape */
+const BAR_HEIGHTS = [10, 14, 20, 24, 28, 22, 26, 18, 24, 16, 12, 8];
 
 export function VolumeMeter({ volume = 0, tiltPercentage = 0 }) {
   const litCount = Math.round(volume * TOTAL_BARS);
@@ -9,13 +12,13 @@ export function VolumeMeter({ volume = 0, tiltPercentage = 0 }) {
     <>
       <div id="volumeMeter">
         {Array.from({ length: TOTAL_BARS }, (_, i) => {
-          // Bottom bar is index 0, top is index 7
           const isLit = i < litCount;
+          const h = BAR_HEIGHTS[i] || 12;
           return (
             <div
               key={i}
               className={`vol-bar ${isLit ? "lit" : ""}`}
-              data-index={i}
+              style={{ height: `${isLit ? h : h * 0.35}px` }}
             />
           );
         })}
