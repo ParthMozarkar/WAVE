@@ -9,10 +9,8 @@ class SignalingService {
 
   connect() {
     if (!this.socket) {
-      // Force websocket to avoid HTTP Polling CORS issues with free tunnels
-      this.socket = io("https://wave-multiplayer-parth.loca.lt", {
-        transports: ['websocket']
-      });
+      // localhost.run has no security interstitials, so native CORS and WebSockets work out of the box
+      this.socket = io("https://ea86c288eaca03.lhr.life");
 
       this.socket.on("room-update", (room) => {
         this.currentRoom = room;
