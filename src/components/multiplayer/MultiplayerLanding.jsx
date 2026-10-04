@@ -6,20 +6,28 @@ export function MultiplayerLanding({ onNavigate }) {
   const [roomCode, setRoomCode] = useState('');
   const [playerName, setPlayerName] = useState('');
   const [error, setError] = useState('');
+  const [isCreating, setIsCreating] = useState(false);
+  const [isJoining, setIsJoining] = useState(false);
+
+  // Pre-connect the WebSocket in the background so it's instantly ready when they click
+  useEffect(() => {
+    signalingService.connect();
+  }, []);
 
   const handleCreateRoom = async () => {
-    signalingService.connect();
+    setIsCreating(true);
     const res = await signalingService.createRoom();
     if (res.success) {
       onNavigate(`/multiplayer/room/${res.roomCode}`);
     } else {
       setError('Failed to create room.');
+      setIsCreating(false);
     }
   };
 
   const handleJoinRoom = async () => {
     if (!roomCode) return;
-    signalingService.connect();
+    setIsJoining(true);
     const res = await signalingService.joinRoom(roomCode, playerName);
     if (res.success) {
       onNavigate(`/multiplayer/room/${roomCode.toUpperCase()}`);
@@ -129,7 +137,7 @@ export function MultiplayerLanding({ onNavigate }) {
           onMouseOver={e => { e.currentTarget.style.background = 'rgba(0, 229, 255, 0.2)'; }}
           onMouseOut={e => { e.currentTarget.style.background = 'rgba(0, 229, 255, 0.1)'; }}
           >
-            Create Room
+            {isCreating ? 'Creating...' : 'Create Room'}
           </button>
         </div>
 
@@ -181,7 +189,7 @@ export function MultiplayerLanding({ onNavigate }) {
                 textAlign: 'center'
               }}
             />
-            <button onClick={handleJoinRoom} disabled={!roomCode} style={{
+            <button onClick={handleJoinRoom} disabled={!roomCode || isJoining} style={{
               background: 'var(--w-text)',
               border: 'none',
               color: '#000',
@@ -191,12 +199,12 @@ export function MultiplayerLanding({ onNavigate }) {
               fontWeight: 600,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              cursor: roomCode ? 'pointer' : 'not-allowed',
-              opacity: roomCode ? 1 : 0.5,
+              cursor: roomCode && !isJoining ? 'pointer' : 'not-allowed',
+              opacity: roomCode && !isJoining ? 1 : 0.5,
               marginTop: 10,
               transition: 'all 0.3s ease'
             }}>
-              Connect
+              {isJoining ? 'Connecting...' : 'Connect'}
             </button>
           </div>
         </div>
