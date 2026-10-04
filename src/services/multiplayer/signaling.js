@@ -10,7 +10,7 @@ class SignalingService {
   connect() {
     if (!this.socket) {
       // Connect to the internet-facing tunnel so friends can test
-      this.socket = io("https://major-cloths-tell.loca.lt", {
+      this.socket = io("https://wave-multiplayer-parth.loca.lt", {
         transports: ['websocket'],
         extraHeaders: {
           "Bypass-Tunnel-Reminder": "true"
