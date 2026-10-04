@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signalingService } from '../../services/multiplayer/signaling';
 import '../../styles/app.css';
 
