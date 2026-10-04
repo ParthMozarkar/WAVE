@@ -7,15 +7,30 @@ export function useWebRTC(roomCode, participantId) {
   const localStreamRef = useRef(null);
 
   useEffect(() => {
+    // Initialize local stream
     async function initLocalStream() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); // Audio off for now to avoid feedback
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
         localStreamRef.current = stream;
+        
         setStreams(prev => {
           const next = new Map(prev);
           next.set(participantId, stream);
           return next;
         });
+
+        // Add tracks to all existing peers (if any were created before camera was ready)
+        peersRef.current.forEach(peer => {
+          stream.getTracks().forEach(track => {
+            // Only add if not already added
+            const senders = peer.getSenders();
+            const hasTrack = senders.find(s => s.track === track);
+            if (!hasTrack) {
+              peer.addTrack(track, stream);
+            }
+          });
+        });
+
       } catch (err) {
         console.error("Camera access denied", err);
       }
@@ -31,6 +46,8 @@ export function useWebRTC(roomCode, participantId) {
   }, [participantId]);
 
   const createPeer = (peerId) => {
+    if (peersRef.current.has(peerId)) return peersRef.current.get(peerId);
+
     const peer = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
     });
@@ -52,6 +69,20 @@ export function useWebRTC(roomCode, participantId) {
     peer.onicecandidate = (event) => {
       if (event.candidate) {
         signalingService.sendIceCandidate(peerId, event.candidate);
+      }
+    };
+
+    // Modern perfect negotiation pattern
+    peer.onnegotiationneeded = async () => {
+      try {
+        // Only one peer initiates to avoid collision
+        if (signalingService.socket?.id > peerId) {
+          const offer = await peer.createOffer();
+          await peer.setLocalDescription(offer);
+          signalingService.sendWebRTCOffer(peerId, offer);
+        }
+      } catch (err) {
+        console.error("Negotiation error:", err);
       }
     };
 
@@ -94,12 +125,7 @@ export function useWebRTC(roomCode, participantId) {
   }, []);
 
   const initiateConnection = async (peerId) => {
-    if (!peersRef.current.has(peerId)) {
-      const peer = createPeer(peerId);
-      const offer = await peer.createOffer();
-      await peer.setLocalDescription(offer);
-      signalingService.sendWebRTCOffer(peerId, offer);
-    }
+    createPeer(peerId);
   };
 
   return { streams, initiateConnection };
