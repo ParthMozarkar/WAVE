@@ -10,11 +10,7 @@ class SignalingService {
   connect() {
     if (!this.socket) {
       // Connect to the internet-facing tunnel so friends can test
-      this.socket = io("https://wave-multiplayer-parth.loca.lt", {
-        extraHeaders: {
-          "Bypass-Tunnel-Reminder": "true"
-        }
-      });
+      this.socket = io("https://lbzra-203-92-58-30.free.pinggy.net");
 
       this.socket.on("room-update", (room) => {
         this.currentRoom = room;
