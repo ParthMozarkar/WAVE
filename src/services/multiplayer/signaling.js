@@ -9,8 +9,8 @@ class SignalingService {
 
   connect() {
     if (!this.socket) {
-      // Connect to the local signaling server
-      this.socket = io("http://localhost:3001");
+      // Connect to the internet-facing tunnel so friends can test
+      this.socket = io("https://major-cloths-tell.loca.lt");
 
       this.socket.on("room-update", (room) => {
         this.currentRoom = room;
