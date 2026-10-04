@@ -14,7 +14,7 @@ import { Footer } from "./components/Footer.jsx";
 
 import "./styles/landing.css";
 
-export function LandingPage({ onEnter }) {
+export function LandingPage({ onEnter, onEnterMultiplayer }) {
   // Smooth scroll-driven 3D transition observer
   useEffect(() => {
     const targets = document.querySelectorAll(
@@ -50,7 +50,7 @@ export function LandingPage({ onEnter }) {
   return (
     <div className="landing-root">
       <div className="landing-noise" aria-hidden="true" />
-      <LandingNav onEnter={onEnter} />
+      <LandingNav onEnter={onEnter} onEnterMultiplayer={onEnterMultiplayer} />
       <StorylineRail />
       <main>
         {/* ACT 01: The Spatial Instrument Vision */}
