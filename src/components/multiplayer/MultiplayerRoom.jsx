@@ -3,6 +3,9 @@ import { signalingService } from '../../services/multiplayer/signaling';
 import { useWebRTC } from '../../hooks/multiplayer/useWebRTC';
 import { useSessionClock } from '../../hooks/multiplayer/useSessionClock';
 import { useMusicalSync } from '../../hooks/multiplayer/useMusicalSync';
+import { useGestureMapping } from '../../hooks/useGestureMapping';
+import { useGestureDetection } from '../../hooks/useGestureDetection';
+import { useHandTracking } from '../../hooks/useHandTracking';
 import '../../styles/app.css';
 
 export function MultiplayerRoom({ roomCode, onLeave }) {
@@ -295,7 +298,11 @@ function Performance({ room, roomCode, onLeave }) {
               boxShadow: '0 20px 50px rgba(0,0,0,0.8)'
             }}>
               {stream ? (
-                <VideoPlayer stream={stream} muted={isMe} />
+                isMe ? (
+                  <LocalGesturePlayer stream={stream} muted={isMe} broadcastEvent={broadcastEvent} me={p} />
+                ) : (
+                  <VideoPlayer stream={stream} muted={isMe} />
+                )
               ) : (
                 <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--w-text-muted)' }}>
                   {isMe ? 'Initializing Camera...' : 'Awaiting Video Stream...'}
@@ -314,7 +321,8 @@ function Performance({ room, roomCode, onLeave }) {
                 border: '1px solid var(--w-glass-border)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 10
+                gap: 10,
+                zIndex: 10
               }}>
                 <span style={{ fontWeight: 500 }}>{p.name}</span>
                 <span style={{ width: 4, height: 4, background: 'var(--w-text-muted)', borderRadius: '50%' }}></span>
@@ -324,6 +332,73 @@ function Performance({ room, roomCode, onLeave }) {
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function LocalGesturePlayer({ stream, muted, broadcastEvent, me }) {
+  const videoRef = React.useRef(null);
+  const canvasRef = React.useRef(null);
+  const { mappingManager } = useGestureMapping();
+
+  const handleChordChange = React.useCallback((chordData) => {
+    broadcastEvent({
+      type: 'chord',
+      instrument: me.instrument,
+      roman: chordData.roman,
+      isMajorMode: chordData.isMajorMode,
+      qualityIndex: chordData.qualityIndex,
+      thumbDown: chordData.thumbDown,
+      volume: chordData.volume,
+      horizontalTilt: chordData.horizontalTilt
+    });
+  }, [broadcastEvent, me.instrument]);
+
+  const { processHandFrame } = useGestureDetection(
+    mappingManager,
+    handleChordChange
+  );
+
+  const dummyAudioEngine = React.useMemo(() => {
+    let isPlaying = false;
+    return {
+      setVolume: () => {},
+      updateFilterSweep: () => {},
+      playChord: () => {
+        isPlaying = true;
+      },
+      fadeOut: () => {
+        if (isPlaying) {
+          isPlaying = false;
+          broadcastEvent({ type: 'stop', instrument: me.instrument });
+        }
+      }
+    };
+  }, [broadcastEvent, me.instrument]);
+
+  useHandTracking({
+    videoRef,
+    canvasRef,
+    audioEngine: dummyAudioEngine,
+    currentTonicFreq: 220.00,
+    processHandFrame,
+    perfMonitor: null,
+    isRecordingActive: false,
+    isPlaybackActive: false,
+    isAudioStarted: true,
+    active: true
+  });
+
+  useEffect(() => {
+    if (videoRef.current && stream) {
+      videoRef.current.srcObject = stream;
+    }
+  }, [stream]);
+
+  return (
+    <div style={{ position: 'absolute', inset: 0 }}>
+      <video ref={videoRef} autoPlay muted={muted} playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />
     </div>
   );
 }

@@ -11,17 +11,27 @@ export async function setupCamera(videoEl) {
     throw new Error("Webcam access is not supported by your browser");
   }
 
-  const stream = await navigator.mediaDevices.getUserMedia({
-    video: { width: 640, height: 480 },
-    audio: false,
-  });
+  // If the video element already has a stream (e.g. from WebRTC), reuse it!
+  let stream = videoEl.srcObject;
+  
+  if (!stream) {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { width: 640, height: 480 },
+      audio: false,
+    });
+    videoEl.srcObject = stream;
+  }
 
-  videoEl.srcObject = stream;
   return new Promise((resolve) => {
-    videoEl.onloadedmetadata = () => {
+    if (videoEl.readyState >= 2) {
       videoEl.play();
       resolve(stream);
-    };
+    } else {
+      videoEl.onloadedmetadata = () => {
+        videoEl.play();
+        resolve(stream);
+      };
+    }
   });
 }
 

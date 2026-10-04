@@ -8,7 +8,11 @@ export function useMusicalSync(roomCode, currentTonicFreq) {
       // Incoming remote musical event
       const instrument = instrumentRegistry[event.instrument];
       if (instrument) {
-        instrument.play(event, currentTonicFreq);
+        if (event.type === 'stop' && instrument.stop) {
+          instrument.stop();
+        } else {
+          instrument.play(event, currentTonicFreq);
+        }
       }
     };
 
@@ -25,7 +29,11 @@ export function useMusicalSync(roomCode, currentTonicFreq) {
     // Also play locally
     const instrument = instrumentRegistry[event.instrument];
     if (instrument) {
-      instrument.play(event, currentTonicFreq);
+      if (event.type === 'stop' && instrument.stop) {
+        instrument.stop();
+      } else {
+        instrument.play(event, currentTonicFreq);
+      }
     }
   };
 
