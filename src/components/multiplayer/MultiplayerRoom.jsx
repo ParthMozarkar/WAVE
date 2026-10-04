@@ -275,7 +275,7 @@ function Performance({ room, roomCode, onLeave }) {
       {/* Camera Grid */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: room.participants.length > 2 ? '1fr 1fr' : '1fr', 
+        gridTemplateColumns: room.participants.length > 1 ? '1fr 1fr' : '1fr', 
         gridTemplateRows: room.participants.length > 2 ? '1fr 1fr' : '1fr',
         gap: 20, 
         padding: '80px 40px 40px 40px', 
