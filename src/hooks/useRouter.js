@@ -3,8 +3,10 @@ import { useState, useEffect, useCallback } from "react";
 function getNormalizedRoute() {
   const hash = window.location.hash.replace(/^#\/?/, "");
   if (hash === "play") return "/play";
+  if (hash.startsWith("multiplayer")) return "/" + hash;
 
   const path = window.location.pathname;
+  if (path.startsWith("/multiplayer")) return path;
   if (path.endsWith("/play") || path === "/play") return "/play";
 
   return "/";
@@ -42,5 +44,6 @@ export function useRouter() {
     route,
     navigate,
     isPlay: route === "/play",
+    isMultiplayer: route.startsWith("/multiplayer"),
   };
 }

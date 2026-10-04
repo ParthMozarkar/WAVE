@@ -4,125 +4,157 @@ import { soundPreview } from "../animations/SoundPreview.js";
 const GESTURE_ITEMS = [
   {
     id: "1_finger",
-    icon: "1️⃣",
-    name: "1 Finger",
-    chord: "C Major",
+    gestureName: "1 Finger (Index)",
+    symbol: "☝️",
+    chord: "C Major 7",
     degree: "Degree I (Tonic)",
-    notes: [261.63, 329.63, 392.00, 523.25],
-    noteNames: "C - E - G - C",
+    notes: [261.63, 329.63, 392.00, 493.88],
+    noteNames: "C4 · E4 · G4 · B4",
+    mood: "Pure, Centered, Grounded",
   },
   {
     id: "2_fingers",
-    icon: "2️⃣",
-    name: "2 Fingers",
-    chord: "G Major",
+    gestureName: "2 Fingers (Peace)",
+    symbol: "✌️",
+    chord: "G Dominant 7",
     degree: "Degree V (Dominant)",
-    notes: [196.00, 246.94, 293.66, 392.00],
-    noteNames: "G - B - D - G",
+    notes: [196.00, 246.94, 293.66, 349.23],
+    noteNames: "G3 · B3 · D4 · F4",
+    mood: "Uplifting, Tense, Resolving",
   },
   {
     id: "3_fingers",
-    icon: "3️⃣",
-    name: "3 Fingers",
-    chord: "A Minor",
+    gestureName: "3 Fingers",
+    symbol: "🤟",
+    chord: "A Minor 9",
     degree: "Degree vi (Relative Minor)",
-    notes: [220.00, 261.63, 329.63, 440.00],
-    noteNames: "A - C - E - A",
+    notes: [220.00, 261.63, 329.63, 392.00, 493.88],
+    noteNames: "A3 · C4 · E4 · G4 · B4",
+    mood: "Lush, Melancholic, Cinematic",
   },
   {
     id: "4_fingers",
-    icon: "4️⃣",
-    name: "4 Fingers",
-    chord: "F Major",
+    gestureName: "Open Hand (4-5)",
+    symbol: "✋",
+    chord: "F Major 9",
     degree: "Degree IV (Subdominant)",
-    notes: [174.61, 220.00, 261.63, 349.23],
-    noteNames: "F - A - C - F",
+    notes: [174.61, 220.00, 261.63, 329.63, 392.00],
+    noteNames: "F3 · A3 · C4 · E4 · G4",
+    mood: "Expansive, Ethereal, Floating",
   },
   {
     id: "rock",
-    icon: "🤘",
-    name: "Index + Pinky",
-    chord: "E Minor",
+    gestureName: "Rock On (Index + Pinky)",
+    symbol: "🤘",
+    chord: "E Minor 11",
     degree: "Degree iii (Mediant)",
-    notes: [164.81, 196.00, 246.94, 329.63],
-    noteNames: "E - G - B - E",
+    notes: [164.81, 196.00, 246.94, 329.63, 440.00],
+    noteNames: "E3 · G3 · B3 · E4 · A4",
+    mood: "Dark, Resonant, Mysterious",
   },
   {
     id: "horns",
-    icon: "🤟",
-    name: "Index + Pinky + Thumb",
-    chord: "B Diminished",
+    gestureName: "Love / Horns + Thumb",
+    symbol: "🤟",
+    chord: "B Diminished 7",
     degree: "Degree vii° (Leading Tone)",
     notes: [246.94, 293.66, 349.23, 493.88],
-    noteNames: "B - D - F - B",
+    noteNames: "B3 · D4 · F4 · B4",
+    mood: "Tense, Dramatic, Unstable",
   },
 ];
 
 export function GestureMusic() {
-  const [activeItem, setActiveItem] = useState(GESTURE_ITEMS[0]);
+  const [activeItem, setActiveItem] = useState(GESTURE_ITEMS[3]);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleSelect = (item) => {
     setActiveItem(item);
+    setIsPlaying(true);
     soundPreview.playChordPreview(item.notes);
+    setTimeout(() => setIsPlaying(false), 800);
   };
 
   return (
-    <section id="gestures" className="lp-gestures lp-container">
-      <div className="lp-section-header">03 / GESTURE TO SOUND</div>
-
-      <h2 className="lp-concept-title">
-        PHYSICAL GESTURES.<br />
-        INSTANT HARMONY.
-      </h2>
-
-      <p className="lp-hero-desc">
-        Hover or tap any gesture below to audition chords and see how physical hands map into musical progression.
-      </p>
-
-      <div className="lp-gestures-grid">
-        {GESTURE_ITEMS.map((item) => {
-          const isActive = activeItem.id === item.id;
-          return (
-            <div
-              key={item.id}
-              className={`lp-gesture-card ${isActive ? "active" : ""}`}
-              onMouseEnter={() => handleSelect(item)}
-              onClick={() => handleSelect(item)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleSelect(item);
-                }
-              }}
-              aria-label={`${item.name} plays ${item.chord}`}
-            >
-              <div className="lp-gesture-icon">{item.icon}</div>
-              <div className="lp-gesture-name">{item.name}</div>
-              <div className="lp-gesture-chord">{item.chord}</div>
-              <div className="lp-gesture-hint">{item.degree}</div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="lp-gestures-preview-box">
-        <div className="lp-preview-details">
-          <div className="lp-preview-chord">{activeItem.chord}</div>
-          <div className="lp-preview-sub">
-            {activeItem.degree} &bull; Tones: {activeItem.noteNames}
-          </div>
+    <section id="gestures" className="yc-section">
+      <div className="lp-container">
+        <div className="yc-section-tag">
+          <span className="yc-tag-num">04</span>
+          <span className="yc-tag-divider">//</span>
+          <span>GESTURE HARMONIC MATRIX</span>
         </div>
 
-        <button
-          className="btn-sm"
-          onClick={() => soundPreview.playChordPreview(activeItem.notes)}
-          title="Play chord chime"
-        >
-          🔊 AUDITION CHORD
-        </button>
+        <div className="yc-section-heading-wrap">
+          <h2 className="yc-section-title">
+            Physical gestures. <br />
+            <span className="yc-gradient-highlight">Instant harmonic voicings.</span>
+          </h2>
+          <p className="yc-section-lead">
+            Hover or tap any gesture card to audition real-time polyphonic synthesis.
+            Every finger configuration triggers studio-grade extended chord harmony.
+          </p>
+        </div>
+
+        <div className="yc-gestures-grid">
+          {GESTURE_ITEMS.map((item) => {
+            const isActive = activeItem.id === item.id;
+            return (
+              <div
+                key={item.id}
+                className={`yc-gesture-tile ${isActive ? "is-active" : ""}`}
+                onMouseEnter={() => handleSelect(item)}
+                onClick={() => handleSelect(item)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSelect(item);
+                  }
+                }}
+                aria-label={`${item.gestureName} triggers ${item.chord}`}
+              >
+                <div className="yc-tile-top">
+                  <span className="yc-tile-symbol">{item.symbol}</span>
+                  <span className="yc-tile-badge">{item.degree}</span>
+                </div>
+                <div className="yc-tile-chord">{item.chord}</div>
+                <div className="yc-tile-gesture">{item.gestureName}</div>
+                <div className="yc-tile-notes">{item.noteNames}</div>
+                <div className="yc-tile-mood">{item.mood}</div>
+                {isActive && <div className="yc-tile-active-bar" />}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Live Audition Deck */}
+        <div className="yc-audition-deck">
+          <div className="yc-audition-info">
+            <div className="yc-audition-name">
+              <span className="yc-audition-tag">SELECTED VOICING:</span>
+              <strong>{activeItem.chord}</strong>
+              <span className="yc-audition-degree">({activeItem.degree})</span>
+            </div>
+            <div className="yc-audition-notes">
+              Frequencies: {activeItem.notes.map((n) => Math.round(n) + "Hz").join(" · ")} | Tones: {activeItem.noteNames}
+            </div>
+          </div>
+
+          <button
+            className={`yc-btn-audition ${isPlaying ? "is-sounding" : ""}`}
+            onClick={() => handleSelect(activeItem)}
+            aria-label="Re-play selected chord voicing"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <span>Audition Chord</span>
+          </button>
+        </div>
       </div>
     </section>
   );
 }
+
+export default GestureMusic;
