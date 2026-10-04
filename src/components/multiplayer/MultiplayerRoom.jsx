@@ -245,7 +245,8 @@ function Performance({ room, roomCode, onLeave }) {
 
   useEffect(() => {
     room.participants.forEach(p => {
-      if (p.id !== signalingService.socket?.id) {
+      // Prevent WebRTC offer collisions by ensuring only one peer initiates per pair
+      if (p.id !== signalingService.socket?.id && signalingService.socket?.id > p.id) {
         initiateConnection(p.id);
       }
     });
