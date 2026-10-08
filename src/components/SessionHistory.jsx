@@ -17,14 +17,13 @@ export function SessionHistory({ isOpen, onClose, entries, onClear, onNotify }) 
 
         <h2>📜 Session History</h2>
         <p className="modal-subtitle">
-          Real-time log of chords, gestures, and detection confidence.
+          Real-time log of chords and musical gestures played during your session.
         </p>
 
-        <div className="history-table-header">
+        <div className="history-table-header" style={{ gridTemplateColumns: '80px 1fr 1fr' }}>
           <span>Time</span>
           <span>Gesture</span>
           <span>Chord</span>
-          <span>Conf</span>
         </div>
 
         <div className="history-list">
@@ -35,11 +34,10 @@ export function SessionHistory({ isOpen, onClose, entries, onClear, onNotify }) 
             </div>
           ) : (
             entries.map((item) => (
-              <div key={item.id} className="history-row">
+              <div key={item.id} className="history-row" style={{ gridTemplateColumns: '80px 1fr 1fr' }}>
                 <span className="hist-time">{item.time}</span>
                 <span className="hist-gesture">{item.gesture}</span>
                 <span className="hist-chord">{item.chord}</span>
-                <span className="hist-conf">{item.confidence}%</span>
               </div>
             ))
           )}

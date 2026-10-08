@@ -13,12 +13,12 @@ export function AirDrumsSection() {
 
         <div className="yc-section-heading-wrap">
           <h2 className="yc-section-title">
-            Down to the millisecond. <br />
-            <span className="yc-gradient-highlight">Velocity-sensitive strike physics.</span>
+            Feel the rhythm. <br />
+            <span className="yc-gradient-highlight">Natural air percussion.</span>
           </h2>
           <p className="yc-section-lead">
-            Optical velocity vectors detect downward wrist and fingertip acceleration at 60 FPS,
-            triggering acoustic drum impacts with dynamic 7-bit MIDI velocity gradation.
+            Play dynamic drum patterns right in the air. WAVE translates the speed and power of your strikes
+            into lifelike acoustic impacts and expressive beats.
           </p>
         </div>
 

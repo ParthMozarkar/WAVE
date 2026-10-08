@@ -3,27 +3,27 @@ import React from "react";
 const STEPS = [
   {
     num: "01",
-    tag: "COMPUTER VISION",
-    title: "Optical Landmark Detection",
-    desc: "Your webcam stream is processed locally at 60 FPS using MediaPipe Vision on WebAssembly. 21 skeletal 3D coordinates per hand are extracted with sub-millimeter precision.",
-    highlight: "Zero video frames leave your device.",
-    stats: "60 FPS • WebGL GPU Accelerated",
+    tag: "SEE YOUR HANDS",
+    title: "Natural Motion Tracking",
+    desc: "Your camera instantly perceives your hand positions and finger shapes in real time, with zero video data ever leaving your device.",
+    highlight: "100% private on-device processing.",
+    stats: "Smooth & Responsive",
   },
   {
     num: "02",
-    tag: "SPATIAL HEURISTICS",
-    title: "Kinematic Vector Classification",
-    desc: "WAVE measures joint curvature, finger extension states, palm inclination, and downward strike velocity vectors to differentiate chords, pitch bends, and drum hits.",
-    highlight: "Sub-pixel jitter dampening filter.",
-    stats: "99.4% Detection Confidence",
+    tag: "SHAPE HARMONY",
+    title: "Intuitive Musical Gestures",
+    desc: "Extend fingers to play lush chords, tilt your hands to sweep the filter warmth, or strike the air to trigger dynamic drum beats.",
+    highlight: "Effortless, expressive control.",
+    stats: "Instant Chord Voicings",
   },
   {
     num: "03",
-    tag: "AUDIO DSP",
-    title: "Polyphonic WebAudio Synthesis",
-    desc: "Chords crossfade smoothly through dual-oscillator subtractive synthesis while your right hand sculpts analog biquad filter sweeps and stereo panning in 3D Euclidean space.",
-    highlight: "Zero cloud latency. Pure browser audio.",
-    stats: "48 kHz • 32-bit Float Pipeline",
+    tag: "HEAR THE MUSIC",
+    title: "Immersive Sound Engine",
+    desc: "Rich polyphonic chords and resonant percussion respond instantaneously to every nuance of your movement.",
+    highlight: "Zero delay. Pure musical expression.",
+    stats: "Studio-Grade Acoustic Quality",
   },
 ];
 
@@ -34,17 +34,16 @@ export function HowItWorks() {
         <div className="yc-section-tag">
           <span className="yc-tag-num">02</span>
           <span className="yc-tag-divider">//</span>
-          <span>ENGINEERING & ARCHITECTURE</span>
+          <span>HOW IT WORKS</span>
         </div>
 
         <div className="yc-section-heading-wrap">
           <h2 className="yc-section-title">
-            Engineered for zero latency. <br />
-            <span className="yc-gradient-highlight">From webcam photon to speaker wave.</span>
+            Music at the speed of thought. <br />
+            <span className="yc-gradient-highlight">From hand motion directly to sound.</span>
           </h2>
           <p className="yc-section-lead">
-            Three decoupled real-time pipelines running simultaneously inside your browser thread,
-            delivering sub-12ms end-to-end responsiveness.
+            Experience fluid, instantaneous musical responsiveness designed for immediate creativity.
           </p>
         </div>
 

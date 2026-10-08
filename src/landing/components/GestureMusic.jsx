@@ -90,8 +90,8 @@ export function GestureMusic() {
             <span className="yc-gradient-highlight">Instant harmonic voicings.</span>
           </h2>
           <p className="yc-section-lead">
-            Hover or tap any gesture card to audition real-time polyphonic synthesis.
-            Every finger configuration triggers studio-grade extended chord harmony.
+            Hover or tap any gesture card to preview harmonic voicings.
+            Each finger pose shapes a distinct musical color and chord.
           </p>
         </div>
 

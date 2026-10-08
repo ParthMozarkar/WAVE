@@ -17,7 +17,7 @@ export function Hero({ onEnter }) {
         <div className="yc-hero-badge-wrap">
           <div className="yc-hero-badge" onClick={() => scrollTo("how-it-works")}>
             <span className="yc-badge-dot" />
-            <span className="yc-badge-text">WAVE 2.0 • Real-Time Spatial Audio Engine</span>
+            <span className="yc-badge-text">WAVE • Spatial Musical Instrument</span>
             <span className="yc-badge-pill">YC S24</span>
             <span className="yc-badge-arrow">→</span>
           </div>
@@ -29,10 +29,10 @@ export function Hero({ onEnter }) {
           <span className="yc-gradient-highlight">thin air.</span>
         </h1>
 
-        {/* High-Impact Tech Sub-headline */}
+        {/* High-Impact Consumer Musical Sub-headline */}
         <p className="yc-hero-subheadline">
-          Turn your webcam into a zero-latency polyphonic synthesizer and velocity-sensitive air drum kit.
-          21 skeletal landmarks per hand. Zero hardware. 100% on-device WebAudio DSP.
+          Transform your hand movements into rich chords, expressive melodies, and dynamic air percussion.
+          No instruments or cables needed — just your hands and your music.
         </p>
 
         {/* Dual Primary Call-to-Actions */}
@@ -46,7 +46,7 @@ export function Hero({ onEnter }) {
           <button
             className="yc-btn-secondary"
             onClick={() => scrollTo("how-it-works")}
-            aria-label="View technical architecture"
+            aria-label="Learn how WAVE works"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10" />
@@ -56,30 +56,30 @@ export function Hero({ onEnter }) {
           </button>
         </div>
 
-        {/* Trust & Hardware Specifications Bar */}
+        {/* Trust & Musical Capabilities Bar */}
         <div className="yc-trust-metrics">
           <div className="yc-metric-pill">
             <span className="yc-metric-icon">⚡</span>
-            <span className="yc-metric-bold">&lt;11ms</span>
-            <span className="yc-metric-label">DSP Latency</span>
+            <span className="yc-metric-bold">Instant</span>
+            <span className="yc-metric-label">Zero Delay Audio</span>
           </div>
           <div className="yc-metric-divider" />
           <div className="yc-metric-pill">
-            <span className="yc-metric-icon">👁️</span>
-            <span className="yc-metric-bold">60 FPS</span>
-            <span className="yc-metric-label">GPU Vision Tracking</span>
+            <span className="yc-metric-icon">✋</span>
+            <span className="yc-metric-bold">Natural</span>
+            <span className="yc-metric-label">Fluid Hand Motion</span>
           </div>
           <div className="yc-metric-divider" />
           <div className="yc-metric-pill">
             <span className="yc-metric-icon">🔒</span>
             <span className="yc-metric-bold">100% Private</span>
-            <span className="yc-metric-label">Zero Cloud Video</span>
+            <span className="yc-metric-label">Runs In Browser</span>
           </div>
           <div className="yc-metric-divider" />
           <div className="yc-metric-pill">
             <span className="yc-metric-icon">🎹</span>
-            <span className="yc-metric-bold">Dual Engine</span>
-            <span className="yc-metric-label">Synth + Air Percussion</span>
+            <span className="yc-metric-bold">Dual Mode</span>
+            <span className="yc-metric-label">Chords & Air Drums</span>
           </div>
         </div>
 

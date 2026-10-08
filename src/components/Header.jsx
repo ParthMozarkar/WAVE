@@ -109,14 +109,6 @@ export function Header({
           History
         </button>
 
-        <button
-          className={`top-pill ${isPerfOpen ? "active" : ""}`}
-          onClick={onTogglePerf}
-          title="Performance Diagnostics"
-        >
-          Perf
-        </button>
-
         {onExitHome && (
           <button
             className="top-pill"

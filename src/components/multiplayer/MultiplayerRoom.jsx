@@ -61,8 +61,35 @@ function Lobby({ room, roomCode, onLeave }) {
     }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 60 }}>
         <div>
-          <h1 style={{ margin: 0, fontFamily: 'var(--w-font-display)', fontStyle: 'italic', fontSize: 32, fontWeight: 300 }}>
-            STAGE: <span style={{ color: 'var(--w-cyan)', textShadow: '0 0 15px var(--w-cyan-glow)' }}>{roomCode}</span>
+          <h1 style={{ margin: 0, fontFamily: 'var(--w-font-display)', fontStyle: 'italic', fontSize: 32, fontWeight: 300, display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span>STAGE:</span>
+            <span style={{ color: 'var(--w-cyan)', textShadow: '0 0 15px var(--w-cyan-glow)', fontFamily: 'var(--w-font-mono, monospace)', fontWeight: 700 }}>{roomCode}</span>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(roomCode);
+                const btn = document.getElementById('lobbyCopyBtn');
+                if (btn) {
+                  btn.textContent = '✓ Copied';
+                  setTimeout(() => { if (btn) btn.textContent = '📋 Copy Code'; }, 2000);
+                }
+              }}
+              id="lobbyCopyBtn"
+              style={{
+                background: 'rgba(0, 229, 255, 0.1)',
+                border: '1px solid rgba(0, 229, 255, 0.3)',
+                color: 'var(--w-cyan)',
+                padding: '4px 10px',
+                borderRadius: 14,
+                fontSize: 11,
+                fontFamily: 'var(--w-font)',
+                fontWeight: 500,
+                letterSpacing: '0.04em',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              📋 Copy Code
+            </button>
           </h1>
           <p style={{ margin: '5px 0 0 0', color: 'var(--w-text-muted)', fontSize: 12, letterSpacing: '0.1em' }}>WAITING FOR PERFORMERS</p>
         </div>

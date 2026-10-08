@@ -24,7 +24,7 @@ export function Footer({ onEnter }) {
             <span className="yc-brand-name">WAVE</span>
           </div>
           <p className="yc-footer-desc">
-            Open-source spatial audio synthesizer and air percussion engine powered by Google MediaPipe and Web Audio API.
+            Next-generation spatial musical instrument. Play chords, melodies, and air drums through pure hand motion.
           </p>
           <div className="yc-footer-status">
             <span className="yc-status-dot" />

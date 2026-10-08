@@ -243,20 +243,6 @@ body.instrument-mode {
   box-shadow: 0 0 6px var(--w-cyan-glow);
 }
 
-#distortionDisplay {
-  position: absolute;
-  top: 52px;
-  right: 24px;
-  color: var(--w-text-muted);
-  font-family: var(--w-font);
-  font-size: 10px;
-  font-weight: 300;
-  letter-spacing: 0.05em;
-  text-align: right;
-  pointer-events: none;
-  z-index: 16;
-}
-
 /* ═══════════════════════════════════════════
    CONFIDENCE HUD — compact top center
    ═══════════════════════════════════════════ */

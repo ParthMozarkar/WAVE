@@ -200,16 +200,16 @@ export function HeroStudioConsole({ onEnter }) {
           <span className="yc-dot yc-dot-red" />
           <span className="yc-dot yc-dot-yellow" />
           <span className="yc-dot yc-dot-green" />
-          <span className="yc-console-title">wave_dsp_engine.v2.wasm — Live Spatial Studio</span>
+          <span className="yc-console-title">WAVE Studio — Interactive Spatial Instrument</span>
         </div>
 
         <div className="yc-console-status">
           <span className="yc-live-indicator">
             <span className="yc-live-pulse" />
-            ENGINE: ACTIVE (60 FPS)
+            STUDIO: READY
           </span>
-          <span className="yc-status-pill">LATENCY: &lt;11ms</span>
-          <span className="yc-status-pill">DSP: 48 kHz / 32-bit</span>
+          <span className="yc-status-pill">INSTANT SOUND</span>
+          <span className="yc-status-pill">HIGH FIDELITY</span>
         </div>
 
         <div className="yc-mode-switch">
@@ -235,11 +235,11 @@ export function HeroStudioConsole({ onEnter }) {
 
         {/* Floating Telemetry HUD (Left) */}
         <div className="yc-hud-card yc-hud-left">
-          <div className="yc-hud-label">AI GESTURE RECOGNITION</div>
+          <div className="yc-hud-label">CHORD HARMONY</div>
           <div className="yc-hud-val-large">{activeChord.name}</div>
           <div className="yc-hud-meta">
-            <span>Landmarks: 21 (3D)</span>
-            <span>Confidence: 99.4%</span>
+            <span>Voicing: Rich Harmonics</span>
+            <span>Scale: {activeChord.degree}</span>
           </div>
           <div className="yc-gesture-tag">
             <span className="yc-tag-icon">✋</span>
@@ -249,14 +249,14 @@ export function HeroStudioConsole({ onEnter }) {
 
         {/* Floating Spatial Radar HUD (Right) */}
         <div className="yc-hud-card yc-hud-right">
-          <div className="yc-hud-label">SPATIAL FILTER MODULATION</div>
+          <div className="yc-hud-label">TONE & FILTER SWEEP</div>
           <div className="yc-hud-val-large">{filterCutoff} <span className="yc-unit">Hz</span></div>
           <div className="yc-hud-meta">
-            <span>Cutoff X: {Math.round(mousePos.x * 100)}%</span>
-            <span>Volume Y: {Math.round((1 - mousePos.y) * 100)}%</span>
+            <span>Warmth: {Math.round(mousePos.x * 100)}%</span>
+            <span>Presence: {Math.round((1 - mousePos.y) * 100)}%</span>
           </div>
           <div className="yc-spatial-hint">
-            Move cursor over canvas to sweep analog low-pass filter
+            Move cursor over canvas to sweep the acoustic tone filter
           </div>
         </div>
 

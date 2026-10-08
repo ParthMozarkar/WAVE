@@ -11,6 +11,7 @@ import { TechnologySection } from "./components/TechnologySection.jsx";
 import { WhyWave } from "./components/WhyWave.jsx";
 import { FinalCTA } from "./components/FinalCTA.jsx";
 import { Footer } from "./components/Footer.jsx";
+import { FloatingHandBackground3D } from "./components/FloatingHandBackground3D.jsx";
 
 import "./styles/landing.css";
 
@@ -49,6 +50,7 @@ export function LandingPage({ onEnter, onEnterMultiplayer }) {
 
   return (
     <div className="landing-root">
+      <FloatingHandBackground3D />
       <div className="landing-noise" aria-hidden="true" />
       <LandingNav onEnter={onEnter} onEnterMultiplayer={onEnterMultiplayer} />
       <StorylineRail />

@@ -46,7 +46,7 @@ export function ConceptSection() {
           </div>
 
           <div className="yc-compare-card yc-card-new">
-            <div className="yc-card-badge yc-badge-featured">WAVE SPATIAL AI</div>
+            <div className="yc-card-badge yc-badge-featured">WAVE SPATIAL INSTRUMENT</div>
             <h3 className="yc-compare-title">The Invisible Instrument</h3>
             <ul className="yc-compare-list">
               <li>
@@ -55,15 +55,15 @@ export function ConceptSection() {
               </li>
               <li>
                 <span className="yc-list-icon yc-check">✓</span>
-                <span><strong>Sub-millimeter 3D tracking:</strong> 21 joints per hand at 60 FPS GPU</span>
+                <span><strong>Effortless tracking:</strong> Natural hand movements translate seamlessly into sound</span>
               </li>
               <li>
                 <span className="yc-list-icon yc-check">✓</span>
-                <span><strong>Continuous multidimensional expression:</strong> Pitch, filter cutoff & air drum strike velocity</span>
+                <span><strong>Multidimensional expression:</strong> Control pitch, timbre, and rhythm with intuitive gestures</span>
               </li>
               <li>
                 <span className="yc-list-icon yc-check">✓</span>
-                <span><strong>Instant browser execution:</strong> Zero install, pure WebAudio + WASM DSP</span>
+                <span><strong>Play anywhere:</strong> Instant browser access with zero setup or downloads</span>
               </li>
             </ul>
           </div>

@@ -9,8 +9,14 @@ class SignalingService {
 
   connect() {
     if (!this.socket) {
-      // localhost.run has no security interstitials, so native CORS and WebSockets work out of the box
-      this.socket = io("https://ea86c288eaca03.lhr.life");
+      const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+      const serverUrl = isLocal ? "http://localhost:3001" : "https://ea86c288eaca03.lhr.life";
+      
+      this.socket = io(serverUrl, {
+        transports: ["websocket", "polling"],
+        reconnectionAttempts: 5,
+        timeout: 8000,
+      });
 
       this.socket.on("room-update", (room) => {
         this.currentRoom = room;
@@ -32,9 +38,14 @@ class SignalingService {
   }
 
   createRoom() {
+    this.connect();
     return new Promise((resolve) => {
+      if (!this.socket) {
+        resolve({ success: false, error: "Signaling service unavailable" });
+        return;
+      }
       this.socket.emit("create-room", (response) => {
-        if (response.success && response.room) {
+        if (response && response.success && response.room) {
           this.currentRoom = response.room;
         }
         resolve(response);

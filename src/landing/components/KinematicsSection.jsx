@@ -13,12 +13,12 @@ export function KinematicsSection() {
 
         <div className="yc-section-heading-wrap">
           <h2 className="yc-section-title">
-            21 spatial landmarks. <br />
+            Sculpted by your hands. <br />
             <span className="yc-gradient-highlight">Infinite acoustic freedom.</span>
           </h2>
           <p className="yc-section-lead">
-            WAVE maps your webcam stream into a sub-millimeter 3D spatial coordinate mesh.
-            Click and drag to rotate the skeletal rig in full 3D, toggle poses, and explore the mathematical vectors powering each chord.
+            Your natural hand shapes become chords and melodies in 3D space.
+            Explore the interactive hand model below and discover how each gesture creates music.
           </p>
         </div>
 
